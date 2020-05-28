@@ -11,6 +11,11 @@ import UIKit
 struct CalculatorBrain {
     
     var bmi: BMI?
+    var factor: Float = 1.0     // 1.0 for Metric and 703 for Imperial units
+    
+    mutating func setFactor(value: Float) {
+        factor = value          
+    }
     
     func getBMIValue() -> String {
         let bmiTo1DecimalPlace = String(format: "%.1f", bmi?.value ?? 0.0)
@@ -26,7 +31,7 @@ struct CalculatorBrain {
     }
     
     mutating func calculateBMI(height: Float, weight: Float) {
-        let bmiValue = weight / (height * height)
+        let bmiValue = factor * ( weight / (height * height) )
 
         if bmiValue < 18.5 {
             bmi = BMI(value: bmiValue, advice: "Eat more pies!", color: #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1))
